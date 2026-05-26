@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battleapp</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="app-header">
+        <h1>🎲 Battleapp 🎲</h1>
+    </header>
+
+    <main class="container">
+        <section class="panel left-panel">
+            <div class="button-group">
+                <button id="openModalBtn" class="btn btn-primary">Armee erstellen</button>
+                <button id="openFactionModalBtn" class="btn btn-secondary">Fraktion bearbeiten</button>
+            </div>
+
+            <div class="table-container">
+                <table class="army-table">
+                    <thead>
+                        <tr>
+                            <th class="th-army">Armee</th>
+                            <th class="th-points">Punkte</th>
+                            <th class="th-faction">Fraktion</th>
+                            <th class="th-actions"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><div class="army-name-box">hi</div></td>
+                            <td class="points-cell"><span class="current-pts">0</span><br><span class="max-pts">1500</span></td>
+                            <td class="faction-cell"><span class="faction-main">Orks</span><br><span class="faction-sub">(Heizakult)</span></td>
+                            <td class="action-cell">
+                                <button class="delete-btn">
+                                    🗑️
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="panel right-panel">
+            <div class="play-action">
+                <button class="btn btn-primary btn-play">Spielen</button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="app-footer">
+        <p class="footer-title">💾 Daten-Sicherung für Mobilgeräte:</p>
+        <div class="footer-buttons">
+            <button class="btn btn-outline-purple">
+                💾 Daten exportieren
+            </button>
+            <button class="btn btn-outline-yellow">
+                📂 Daten importieren
+            </button>
+        </div>
+    </footer>
+
+    <div id="armyModal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Armee erstellen</h2>
+            <form id="createArmyForm">
+                <div class="form-group">
+                    <input type="text" placeholder="Name der Armee" class="form-input">
+                </div>
+                <div class="form-group">
+                    <select class="form-input select-input">
+                        <option value="" disabled selected hidden>Fraktion</option>
+                        <option value="orks">Orks</option>
+                        <option value="imperium">Imperium</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-input select-input disabled-input" disabled>
+                        <option value="" disabled selected hidden>Detachment</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <select class="form-input select-input">
+                        <option value="" disabled selected hidden>Streitkraft</option>
+                        <option value="infanterie">Infanterie</option>
+                        <option value="panzer">Panzerdivision</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <input type="number" value="1500" class="form-input">
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn modal-btn-submit">Erstellen</button>
+                    <button type="button" id="closeModalBtn" class="btn modal-btn-cancel">Abbrechen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="factionModal" class="modal-overlay">
+        <div class="modal-content max-w-large modal-flex-layout">
+            
+            <div class="modal-fixed-header">
+                <h2>Fraktions-Verwaltung</h2>
+                
+                <div class="faction-selector-row">
+                    <select class="form-input select-input flex-grow-input">
+                        <option value="tyranids">Tyranids</option>
+                        <option value="orks">Orks</option>
+                    </select>
+                    <button type="button" class="btn btn-primary btn-add-new">+ Neu</button>
+                </div>
+
+                <div class="modal-tabs">
+                    <button type="button" class="tab-item active">Armeeregeln</button>
+                    <button type="button" class="tab-item">Detachments</button>
+                    <button type="button" class="tab-item">Einheiten-Katalog</button>
+                </div>
+            </div>
+
+            <div class="modal-body-scroll">
+                <form id="factionForm">
+                    
+                    <div id="tab-armeeregeln" class="tab-pane active">
+                        <h3>Fraktions-Details</h3>
+                        <div class="form-group">
+                            <label class="form-label">Fraktionsname:</label>
+                            <input type="text" value="Tyranids" class="form-input">
+                        </div>
+
+                        <h3>Fraktionsfähigkeiten</h3>
+                        
+                        <div id="abilities-container">
+
+                            <div class="ability-card">
+                                <div class="ability-card-header">
+                                    <span class="ability-title">✨ Fähigkeit #1 (Neu)</span>
+                                    <button type="button" class="btn-delete-link btn-remove-entire-ability">
+                                        🗑️ Fähigkeit löschen
+                                    </button>
+                                </div>
+
+                                <div class="form-row-2col">
+                                    <div class="form-group">
+                                        <label class="form-label">Name der Fähigkeit:</label>
+                                        <input type="text" placeholder="z.B. Synapse / Hyper-Adaptations" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Wann? (Trigger):</label>
+                                        <select class="form-input select-input">
+                                            <option>Passiv / Immer aktiv</option>
+                                            <option>In der Schussphase</option>
+                                            <option>In der Nahkampfphase</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Beschreibung / Regeltext (Flavor):</label>
+                                    <textarea placeholder="Beschreibe die Funktionsweise der Regel..." class="form-input form-textarea" rows="3"></textarea>
+                                </div>
+
+                                <div class="form-row-special">
+                                    <div class="inline-form-group">
+                                        <label class="form-label-inline">Limit:</label>
+                                        <input type="number" value="1" class="form-input input-small">
+                                    </div>
+                                    <div class="inline-form-group flex-grow-input">
+                                        <label class="form-label-inline">Anwendung(en) pro</label>
+                                        <select class="form-input select-input">
+                                            <option>unbegrenzt</option>
+                                            <option>Runde</option>
+                                            <option>Spiel</option>
+                                        </select>
+                                    </div>
+                                    <div class="inline-form-group">
+                                        <label class="form-label-inline">Dauer des Effekts:</label>
+                                        <select class="form-input select-input">
+                                            <option>Sofort (Instant)</option>
+                                            <option>Bis zum Ende der Phase</option>
+                                            <option>Bis zum Ende des Zuges</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Globaler Effekt (Mechanik für Automatisierung):</label>
+                                    <input type="text" placeholder="z.B. Einheiten in Synapsenreichweite bestehen Moraltests automatisch" class="form-input">
+                                </div>
+
+                                <div class="nested-effects-box">
+                                    <div class="nested-title">📊 SPEZIFISCHE EFFEKT & GESTAFFELTE BONI (KONDITIONEN):</div>
+                                    <button type="button" id="btnAddNested" class="btn btn-secondary btn-add-nested btn-add-nested-dynamic">+ Spezifischen/Gestaffelten Effekt hinzufügen</button>
+                                </div>
+                            </div>
+
+                        </div> 
+                        <div class="form-group btn-ability-wrapper">
+                            <button type="button" id="btnMainAddAbility" class="btn btn-secondary btn-add-ability">+ Fähigkeit hinzufügen</button>
+                        </div>
+                    </div>
+
+                    <div id="tab-detachments" class="tab-pane">
+                        <h3>Detachments verwalten</h3>
+                        
+                        <div id="detachments-container">
+                            
+                            <div class="detachment-row">
+                                <span class="detachment-name">Invasion Fleet</span>
+                                
+                                <div class="detachment-actions">
+                                    <button type="button" class="btn btn-secondary btn-sm btn-configure btn-edit-detachment">
+                                        ⚙️ Bearbeiten
+                                    </button>
+                                    
+                                    <button type="button" class="delete-btn table-delete-style btn-remove-detachment">
+                                        🗑️
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="form-group btn-detachment-wrapper">
+                            <button type="button" id="btnMainAddDetachment" class="btn btn-secondary btn-add-detachment">+ Detachment hinzufügen</button>
+                        </div>
+                    </div>
+
+                    <div id="tab-einheiten" class="tab-pane">
+                        <h3>Einheiten dieses Katalogs</h3>
+                        
+                        <div id="units-container">
+                            
+                            <div class="unit-catalog-row">
+                                <span class="unit-name">Termagants</span>
+                                
+                                <div class="unit-actions">
+                                    <button type="button" class="btn btn-secondary btn-sm btn-configure btn-edit-unit">
+                                        ⚙️ Bearbeiten
+                                    </button>
+                                    
+                                    <button type="button" class="delete-btn table-delete-style btn-remove-unit">
+                                        🗑️
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div> 
+                        <div class="form-group btn-unit-wrapper">
+                            <button type="button" id="btnMainAddUnit" class="btn btn-secondary btn-add-unit">+ Neues Datenblatt (Einheit) anlegen</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-fixed-footer">
+                <div class="modal-actions">
+                    <button type="button" id="closeFactionModalBtn" class="btn modal-btn-cancel">Abbrechen</button>
+                    <button type="button" id="submitFactionFormBtn" class="btn modal-btn-submit">Fraktionsdaten speichern</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="deleteConfirmModal" class="modal-overlay">
+        <div class="modal-content modal-confirm-small">
+            <h2 id="deleteModalTitle">Einheit löschen?</h2>
+            <p id="deleteModalText" class="modal-confirm-text">Möchtest du diese Einheit wirklich aus dem Katalog löschen? Diese Aktion kann nicht rückgängig gemacht werden.</p>
+            
+            <div class="modal-actions modal-actions-centered">
+                <button type="button" id="btnConfirmDeleteCoice" class="btn table-delete-style btn-confirm-padding">Löschen</button>
+                <button type="button" id="btnCancelDeleteCoice" class="btn modal-btn-cancel btn-confirm-padding">Abbrechen</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
