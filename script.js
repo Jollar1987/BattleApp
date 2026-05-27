@@ -31,7 +31,6 @@ const btnCancelDeleteCoice = document.getElementById('btnCancelDeleteCoice');
 const deleteModalTitle = document.getElementById('deleteModalTitle');
 const deleteModalText = document.getElementById('deleteModalText');
 
-
 // Hilfsvariable, um sich zu merken, welche Zeile gerade gelöscht werden soll
 let rowToDeleteCurrently = null;
 
@@ -43,7 +42,7 @@ if (submitFactionBtn && factionForm) {
 }
 
 // ==========================================
-// HTML TEMPLATES (Einheitliches Klassen-System)
+// HTML TEMPLATES (Vereinheitlicht!)
 // ==========================================
 
 // Fraktionsverwaltung: Template für neue Einheit
@@ -52,11 +51,11 @@ const unitTemplate = `
         <span class="unit-name">Einheiten-Name</span>
         
         <div class="unit-actions">
-            <button type="button" class="btn btn-secondary btn-sm btn-configure btn-edit-unit">
+            <button type="button" class="btn btn-secondary btn-configure btn-edit-unit">
                 ⚙️ Bearbeiten
             </button>
             
-            <button type="button" class="btn-trash js-delete-unit">
+            <button type="button" class="btn-trash btn-remove-unit">
                 🗑️
             </button>
         </div>
@@ -74,7 +73,7 @@ const newRowHTML = `
             <label class="form-label label-success">Modifikator / Bonus:</label>
             <input type="text" placeholder="z.B. Re-roll 1s to hit / Re-roll full hit roll" class="form-input">
         </div>
-        <button type="button" class="btn-trash js-delete-nested" title="Effekt löschen">🗑️</button>
+        <button type="button" class="btn-trash btn-delete-nested" title="Effekt löschen">🗑️</button>
     </div>
 `;
 
@@ -84,11 +83,11 @@ const detachmentTemplate = `
         <span class="detachment-name">Detachment-Name</span>
         
         <div class="detachment-actions">
-            <button type="button" class="btn btn-secondary btn-sm btn-configure btn-edit-detachment">
+            <button type="button" class="btn btn-secondary btn-configure btn-edit-detachment">
                 ⚙️ Bearbeiten
             </button>
             
-            <button type="button" class="btn-trash js-delete-detachment">
+            <button type="button" class="btn-trash btn-remove-detachment">
                 🗑️
             </button>
         </div>
@@ -104,7 +103,7 @@ const modelProfileTemplate = `
                 <label class="form-label model-name-label">Modell-Typ:</label>
                 <input type="text" placeholder="z.B. Standard-Modell / Sergeant" class="form-input" value="Zusätzliches Modell">
             </div>
-            <button type="button" class="btn-trash js-delete-model-profile" title="Profil löschen">🗑️</button>
+            <button type="button" class="btn-trash btn-remove-model-profile" title="Profil löschen">🗑️</button>
         </div>
 
         <div class="model-profile-stats-row">
@@ -194,7 +193,6 @@ let abilityCounter = 2;
 
 if (btnMainAddAbility && abilitiesContainer) {
     
-    // 1. NEUE FÄHIGKEIT HINZUFÜGEN
     btnMainAddAbility.addEventListener('click', () => {
         const nestedBoxId = `nested-box-${abilityCounter}`;
         const nestedBtnId = `nested-btn-${abilityCounter}`;
@@ -203,7 +201,7 @@ if (btnMainAddAbility && abilitiesContainer) {
             <div class="ability-card animate-spawn" data-ability-index="${abilityCounter}">
                 <div class="ability-card-header">
                     <span class="ability-title">✨ Fähigkeit #${abilityCounter} (Neu)</span>
-                    <button type="button" class="btn-trash js-delete-ability">
+                    <button type="button" class="btn-trash btn-remove-entire-ability">
                         🗑️ Fähigkeit löschen
                     </button>
                 </div>
@@ -216,7 +214,7 @@ if (btnMainAddAbility && abilitiesContainer) {
                     <div class="form-group">
                         <label class="form-label">Wann? (Trigger):</label>
                         <select class="form-input select-input">
-                            <option>Passiv / Immer aktiv</option>
+                            <option>Passiv / Immer active</option>
                             <option>In der Schussphase</option>
                             <option>In der Nahkampfphase</option>
                         </select>
@@ -275,17 +273,16 @@ if (btnMainAddAbility && abilitiesContainer) {
         }
     });
 
-    // 2. KLICKS INNERHALB DES CONTAINERS VERWALTEN
     abilitiesContainer.addEventListener('click', (e) => {
         
-        // Spezifischen/Gestaffelten Effekt hinzufügen
         if (e.target.classList.contains('btn-add-nested-dynamic')) {
             const card = e.target.closest('.ability-card');
+
             const nestedHtml = `
                 <div class="nested-effect-row animate-spawn">
                     <input type="text" placeholder="Bedingung (z.B. Ab 3 verlorenen Modellen)" class="form-input" style="width: 40%;">
                     <input type="text" placeholder="Effekt (z.B. +1 auf Trefferwürfe)" class="form-input" style="width: 50%;">
-                    <button type="button" class="btn-trash js-delete-nested">🗑️</button>
+                    <button type="button" class="btn-trash btn-delete-nested">🗑️</button>
                 </div>
             `;
             
@@ -300,20 +297,16 @@ if (btnMainAddAbility && abilitiesContainer) {
             }
         }
 
-        // Spezifischen/Gestaffelten Effekt löschen
-        if (e.target.closest('.js-delete-nested')) {
+        if (e.target.classList.contains('btn-delete-nested')) {
             e.target.closest('.nested-effect-row').remove();
         }
 
-        // Ganze Fähigkeits-Karte löschen
-        if (e.target.closest('.js-delete-ability')) {
+        if (e.target.closest('.btn-remove-entire-ability')) {
             const card = e.target.closest('.ability-card');
             if (card) {
                 rowToDeleteCurrently = card;
-                
                 deleteModalTitle.textContent = "Fähigkeit löschen?";
                 deleteModalText.textContent = "Möchtest du diese gesamte Fähigkeit inklusive aller eingetragenen Texte und spezifischen Effekte wirklich löschen?";
-                
                 deleteConfirmModal.classList.add('show');
             }
         }  
@@ -345,7 +338,7 @@ if (btnMainAddDetachment && detachmentsContainer) {
 
 if (detachmentsContainer) {
     detachmentsContainer.addEventListener('click', (e) => {
-        if (e.target.closest('.js-delete-detachment')) {
+        if (e.target.closest('.btn-remove-detachment')) {
             const row = e.target.closest('.detachment-row');
             if (row) {
                 rowToDeleteCurrently = row;
@@ -363,8 +356,7 @@ if (detachmentsContainer) {
 if (unitsContainer) {
     unitsContainer.addEventListener('click', (e) => {
         
-        // 1. LOGIK: Einheit löschen
-        if (e.target.closest('.js-delete-unit')) {
+        if (e.target.closest('.btn-remove-unit')) {
             const row = e.target.closest('.unit-catalog-row');
             if (row) {
                 rowToDeleteCurrently = row;
@@ -375,7 +367,6 @@ if (unitsContainer) {
             return;
         }
 
-        // 2. LOGIK: Einheit bearbeiten
         const editBtn = e.target.closest('.btn-edit-unit');
         if (editBtn) {
             e.preventDefault();
@@ -400,7 +391,7 @@ if (closeDsModalBtn) {
 }
 
 // ==========================================
-// EINHEITEN-KATALOG: NEUE ZEILE STATISCH ANLEGEN
+// EINHEITEN-KATALOG: NEUE ZEILE ANLEGEN
 // ==========================================
 if (btnMainAddUnit && unitsContainer) {
     btnMainAddUnit.addEventListener('click', () => {
@@ -441,9 +432,9 @@ if (btnCancelDeleteCoice) {
     });
 }
 
-// ==========================================================
+// ==========================================
 // PROFILWERTE-INTERFACE LOGIK
-// ==========================================================
+// ==========================================
 const modelsProfileContainer = document.getElementById('models-profile-container');
 const btnAddModelProfile = document.getElementById('btnAddModelProfile');
 
@@ -463,7 +454,7 @@ if (btnAddModelProfile && modelsProfileContainer) {
 
 if (modelsProfileContainer) {
     modelsProfileContainer.addEventListener('click', (e) => {
-        if (e.target.closest('.js-delete-model-profile')) {
+        if (e.target.closest('.btn-remove-model-profile')) {
             if (modelsProfileContainer.querySelectorAll('.model-profile-card').length > 1) {
                 e.target.closest('.model-profile-card').remove();
             } else {

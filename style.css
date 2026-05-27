@@ -59,7 +59,10 @@ body {
     padding-top: 30px;
 }
 
-/* Buttons */
+/* ========================================== */
+/* ZENTRALE BUTTON STYLES                     */
+/* ========================================== */
+
 .button-group {
     display: flex;
     gap: 15px;
@@ -77,6 +80,7 @@ body {
     cursor: pointer;
     transition: all 0.2s ease-in-out;
     border: none;
+    font-family: inherit;
 }
 
 .btn-primary {
@@ -103,6 +107,44 @@ body {
     padding: 14px 45px;
     font-size: 17px;
     letter-spacing: 0.5px;
+}
+
+.btn-configure {
+    font-size: 14px;
+    padding: 10px 16px;
+    background-color: #ffffff;
+    border: 1px solid #d0c2d6;
+    color: #6a2b83;
+    white-space: nowrap;
+}
+
+.btn-configure:hover {
+    background-color: #f6f0f9;
+}
+
+.btn-full-width {
+    width: 100%;
+    padding: 14px;
+    font-size: 16px;
+}
+
+/* Modifikatoren für spezifische Buttons */
+.btn-add-new {
+    padding: 14px 20px;
+    font-size: 16px;
+    white-space: nowrap;
+}
+
+.btn-add-ability {
+    font-size: 13px;
+    padding: 8px 14px;
+    border-radius: 6px;
+}
+
+.btn-add-nested {
+    font-size: 12px;
+    padding: 6px 12px;
+    border-color: #6a2b83; /* Etwas dunklerer Rahmen für verschachtelte Buttons */
 }
 
 /* Listen / Tabellen-Stile */
@@ -133,7 +175,7 @@ body {
     vertical-align: middle;
 }
 
-/* Dunkellila Box für die Armee-Namen */
+/* OPTIMIERT: Jetzt als echter, sauber formatierter Tabellen-Button */
 .army-name-box {
     background-color: #3b1c4a;
     color: #ffffff;
@@ -142,6 +184,17 @@ body {
     font-weight: 600;
     font-size: 16px;
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    width: 100%;
+    display: block;
+    font-family: inherit;
+    transition: background-color 0.2s ease;
+}
+
+.army-name-box:hover {
+    background-color: #2e153a;
 }
 
 /* Punkte-Spalte */
@@ -312,29 +365,12 @@ body {
     margin-top: 35px;
 }
 
-.modal-btn-submit {
-    flex: 1;
-    background-color: #6a2b83;
-    color: #ffffff;
-    font-size: 18px;
-    padding: 14px;
-}
-
-.modal-btn-submit:hover {
-    background-color: #542069;
-}
-
+/* OPTIMIERT: Farbwerte entfernt, erben jetzt über .btn-primary und .btn-secondary */
+.modal-btn-submit,
 .modal-btn-cancel {
     flex: 1;
-    background-color: transparent;
-    border: 1px solid #6a2b83;
-    color: #6a2b83;
     font-size: 18px;
     padding: 14px;
-}
-
-.modal-btn-cancel:hover {
-    background-color: #f6f0f9;
 }
 
 /* Responsive Anpassung */
@@ -374,12 +410,10 @@ body {
 /* ERWEITERUNGEN FÜR DIE FRAKTIONSVERWALTUNG */
 /* ========================================== */
 
-/* Optionale größere Breite für die Verwaltung */
 .max-w-large {
     max-width: 1000px !important;
 }
 
-/* Obere Fraktionsauswahl-Zeile */
 .faction-selector-row {
     display: flex;
     gap: 15px;
@@ -389,12 +423,6 @@ body {
 
 .flex-grow-input {
     flex: 1;
-}
-
-.btn-add-new {
-    padding: 14px 20px;
-    font-size: 16px;
-    white-space: nowrap;
 }
 
 /* Tab-Leiste (Reiter) */
@@ -421,7 +449,6 @@ body {
     color: #1d1d1f;
 }
 
-/* Aktiver lila Unterstrich für den ausgewählten Tab */
 .tab-item.active {
     color: #6a2b83;
 }
@@ -437,7 +464,6 @@ body {
     border-radius: 3px 3px 0 0;
 }
 
-/* Inhalt unter den Tabs */
 .tab-content h3 {
     font-size: 18px;
     color: #000000;
@@ -453,18 +479,10 @@ body {
     margin-bottom: 6px;
 }
 
-/* Button zum Hinzufügen von Fähigkeiten */
-.btn-add-ability {
-    font-size: 13px;
-    padding: 8px 14px;
-    border-radius: 6px;
-}
-
 /* ========================================== */
 /* ADVANCED FORM & INTERN SCROLLING STYLES    */
 /* ========================================== */
 
-/* Flex-Layout für das Modal, um Header/Footer zu fixieren */
 .modal-flex-layout {
     display: flex;
     flex-direction: column;
@@ -473,7 +491,6 @@ body {
     overflow: hidden;
 }
 
-/* Spezifische Breite NUR für das Einheiten-Datenblatt-Modal */
 #unitDatasheetModal .modal-content-large {
     max-width: 1200px;
     width: 95%;
@@ -495,7 +512,6 @@ body {
     flex-shrink: 0;
 }
 
-/* Der magische Scrollbereich */
 .modal-body-scroll {
     flex: 1;
     overflow-y: auto;
@@ -505,7 +521,6 @@ body {
     scrollbar-color: #a0a0a0 #f0f0f0;
 }
 
-/* Custom Scrollbar für Webkit (Chrome/Safari/Edge) */
 .modal-body-scroll::-webkit-scrollbar {
     width: 8px;
 }
@@ -545,20 +560,17 @@ body {
     font-size: 15px;
 }
 
-/* Textarea Layout */
 .form-textarea {
     resize: vertical;
     font-family: inherit;
 }
 
-/* Grid-Layouts für mehrspaltige Zeilen */
 .form-row-2col {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 }
 
-/* Die Zeile mit Limit, Anwendung und Dauer */
 .form-row-special {
     display: flex;
     flex-wrap: wrap;
@@ -601,14 +613,6 @@ body {
     margin-bottom: 12px;
 }
 
-.btn-add-nested {
-    font-size: 12px;
-    padding: 6px 12px;
-    background-color: transparent;
-    border: 1px solid #6a2b83;
-    color: #6a2b83;
-}
-
 /* Mobile responsive Anpassungen für Grids */
 @media (max-width: 768px) {
     .form-row-2col {
@@ -640,19 +644,6 @@ body {
     display: block;
 }
 
-.btn-configure {
-    font-size: 14px;
-    padding: 10px 16px;
-    background-color: #ffffff;
-    border: 1px solid #d0c2d6;
-    color: #6a2b83;
-    white-space: nowrap;
-}
-
-.btn-configure:hover {
-    background-color: #f6f0f9;
-}
-
 /* ========================================== */
 /* STYLES FÜR DEN EINHEITEN-KATALOG           */
 /* ========================================== */
@@ -681,31 +672,6 @@ body {
     display: flex;
     gap: 10px;
     align-items: center;
-}
-
-.btn-edit-link {
-    background: none;
-    border: none;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    padding: 0;
-    display: inline-flex;
-    align-items: center;
-    transition: color 0.2s ease-in-out;
-}
-
-.style-purple-text {
-    color: #6a2b83 !important;
-}
-.style-purple-text:hover {
-    color: #542069 !important;
-}
-
-.btn-full-width {
-    width: 100%;
-    padding: 14px;
-    font-size: 16px;
 }
 
 /* ========================================== */
@@ -742,7 +708,7 @@ body {
 }
 
 /* ========================================== */
-/* NEUE ZENTRALE STYLES STATT INLINE-ATTRIBUTEN */
+/* ZENTRALE STRUKTUR-STYLINGS                 */
 /* ========================================== */
 
 .label-muted {
@@ -879,7 +845,6 @@ body {
 /* ZENTRALE STYLES FÜR LÖSCH-BUTTONS          */
 /* ========================================== */
 
-/* Die einheitliche Basisklasse für alle Mülleimer-Buttons */
 .btn-trash {
     background: transparent;
     border: none;
@@ -899,14 +864,12 @@ body {
     transform: scale(1.2);
 }
 
-/* Kontext-Anpassung: Lösch-Button für Fähigkeiten (mit Text) */
 .ability-card-header .btn-trash {
     color: #8e8e93;
     font-size: 13px;
     font-weight: 500;
 }
 
-/* Kontext-Anpassung: Lösch-Button für verschachtelte Effekte (Größer & Rot) */
 .nested-effect-row .btn-trash {
     color: #ff3b30;
     font-size: 20px;
@@ -914,7 +877,6 @@ body {
     padding: 5px 10px;
 }
 
-/* Kontext-Anpassung: Lösch-Button im Modell-Profil (Zentriert zum Textfeld) */
 .model-profile-top-row .btn-trash {
     padding: 0;
     margin-bottom: 10px;
