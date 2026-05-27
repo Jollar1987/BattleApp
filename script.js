@@ -98,6 +98,28 @@ const detachmentTemplate = `
     </div>
 `;
 
+// Fraktionsverwaltung: Template für neue zusätzliche Modell-Profile im Einheiten-Datenblatt
+const modelProfileTemplate = `
+    <div class="model-profile-card animate-spawn">
+        <div class="model-profile-row">
+            <div class="form-group model-name-group">
+                <label class="form-label model-name-label">Modell-Typ:</label>
+                <input type="text" placeholder="z.B. Standard-Modell / Sergeant" class="form-input" value="Zusätzliches Modell">
+            </div>
+            <div class="form-group model-stat-group"><label>M</label><input type="text" placeholder="6&quot;" class="form-input"></div>
+            <div class="form-group model-stat-group"><label>WS</label><input type="text" placeholder="4+" class="form-input"></div>
+            <div class="form-group model-stat-group"><label>BS</label><input type="text" placeholder="4+" class="form-input"></div>
+            <div class="form-group model-stat-group"><label>S</label><input type="number" placeholder="3" class="form-input"></div>
+            <div class="form-group model-stat-group"><label>T</label><input type="number" placeholder="3" class="form-input"></div>
+            <div class="form-group model-stat-group"><label>W</label><input type="number" placeholder="1" class="form-input"></div>
+            <div class="form-group model-stat-group"><label>A</label><input type="number" placeholder="1" class="form-input"></div>
+            <div class="form-group model-stat-group"><label>Ld</label><input type="text" placeholder="7+" class="form-input"></div>
+            <div class="form-group model-stat-group"><label>Sv</label><input type="text" placeholder="5+" class="form-input"></div>
+            <button type="button" class="btn-delete-profile btn-remove-model-profile" title="Profil löschen">🗑️</button>
+        </div>
+    </div>
+`;
+
 // ==========================================
 // MODAL 1: ARMEE ERSTELLEN
 // ==========================================
@@ -435,6 +457,42 @@ if (btnCancelDeleteCoice) {
         rowToDeleteCurrently = null;
         if (deleteConfirmModal) {
             deleteConfirmModal.classList.remove('show');
+        }
+    });
+}
+
+// ==========================================================
+// PROFILWERTE-INTERFACE LOGIK (JS-TEMPLATE-ANSATZ)
+// ==========================================================
+const modelsProfileContainer = document.getElementById('models-profile-container');
+const btnAddModelProfile = document.getElementById('btnAddModelProfile');
+
+// Event-Listener: Zusätzliches Profil via JS-Template hinzufügen
+if (btnAddModelProfile && modelsProfileContainer) {
+    btnAddModelProfile.addEventListener('click', () => {
+        modelsProfileContainer.insertAdjacentHTML('beforeend', modelProfileTemplate);
+        
+        // Die gerade eben hinzugefügte Karte finden und die Spawn-Animation timen
+        const newlyAddedCards = modelsProfileContainer.querySelectorAll('.model-profile-card.animate-spawn');
+        const lastAddedCard = newlyAddedCards[newlyAddedCards.length - 1];
+        if (lastAddedCard) {
+            setTimeout(() => {
+                lastAddedCard.classList.remove('animate-spawn');
+            }, 200);
+        }
+    });
+}
+
+// Event-Listener: Profilzeile löschen
+if (modelsProfileContainer) {
+    modelsProfileContainer.addEventListener('click', (e) => {
+        if (e.target.closest('.btn-remove-model-profile')) {
+            // Validierung: Es muss mindestens ein Profil stehen bleiben
+            if (modelsProfileContainer.querySelectorAll('.model-profile-card').length > 1) {
+                e.target.closest('.model-profile-card').remove();
+            } else {
+                alert("Eine Einheit muss mindestens aus einem Modell-Profil bestehen!");
+            }
         }
     });
 }
