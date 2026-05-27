@@ -35,7 +35,7 @@
                             <td class="points-cell"><span class="current-pts">0</span><br><span class="max-pts">1500</span></td>
                             <td class="faction-cell"><span class="faction-main">Orks</span><br><span class="faction-sub">(Heizakult)</span></td>
                             <td class="action-cell">
-                                <button class="delete-btn">
+                                <button type="button" class="btn-trash js-delete-army">
                                     🗑️
                                 </button>
                             </td>
@@ -139,7 +139,7 @@
                             <div class="ability-card">
                                 <div class="ability-card-header">
                                     <span class="ability-title">✨ Fähigkeit #1 (Neu)</span>
-                                    <button type="button" class="btn-delete-link btn-remove-entire-ability">
+                                    <button type="button" class="btn-trash js-delete-ability">
                                         🗑️ Fähigkeit löschen
                                     </button>
                                 </div>
@@ -217,7 +217,7 @@
                                         ⚙️ Bearbeiten
                                     </button>
                                     
-                                    <button type="button" class="delete-btn table-delete-style btn-remove-detachment">
+                                    <button type="button" class="btn-trash js-delete-detachment">
                                         🗑️
                                     </button>
                                 </div>
@@ -243,7 +243,7 @@
                                         ⚙️ Bearbeiten
                                     </button>
                                     
-                                    <button type="button" class="delete-btn table-delete-style btn-remove-unit">
+                                    <button type="button" class="btn-trash js-delete-unit">
                                         🗑️
                                     </button>
                                 </div>
@@ -269,7 +269,7 @@
     </div>
 
     <div id="unitDatasheetModal" class="modal-overlay">
-        <div class="modal-content modal-content-large">
+        <div class="modal-content modal-content-large modal-flex-layout">
             
             <div class="modal-fixed-header">
                 <h2>⚙️ Einheiten-Datenblatt bearbeiten</h2>
@@ -298,13 +298,16 @@
                         
                         <div id="models-profile-container">
                             <div class="model-profile-card">
-                                <div class="model-profile-row">
-                                    
+                                
+                                <div class="model-profile-top-row">
                                     <div class="form-group model-name-group">
                                         <label class="form-label model-name-label">Modell-Typ:</label>
                                         <input type="text" placeholder="z.B. Standard-Modell / Sergeant" class="form-input" value="Standard-Modell">
                                     </div>
+                                    <button type="button" class="btn-trash js-delete-model-profile" title="Profil löschen">🗑️</button>
+                                </div>
 
+                                <div class="model-profile-stats-row">
                                     <div class="form-group model-stat-group"><label>M</label><input type="text" placeholder="6&quot;" class="form-input"></div>
                                     <div class="form-group model-stat-group"><label>WS</label><input type="text" placeholder="4+" class="form-input"></div>
                                     <div class="form-group model-stat-group"><label>BS</label><input type="text" placeholder="4+" class="form-input"></div>
@@ -314,9 +317,8 @@
                                     <div class="form-group model-stat-group"><label>A</label><input type="number" placeholder="1" class="form-input"></div>
                                     <div class="form-group model-stat-group"><label>Ld</label><input type="text" placeholder="7+" class="form-input"></div>
                                     <div class="form-group model-stat-group"><label>Sv</label><input type="text" placeholder="5+" class="form-input"></div>
-
-                                    <button type="button" class="btn-delete-profile btn-remove-model-profile" title="Profil löschen">🗑️</button>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -343,7 +345,7 @@
             <p id="deleteModalText" class="modal-confirm-text">Möchtest du diese Einheit wirklich aus dem Katalog löschen? Diese Aktion kann nicht rückgängig gemacht werden.</p>
             
             <div class="modal-actions modal-actions-centered">
-                <button type="button" id="btnConfirmDeleteCoice" class="btn table-delete-style btn-confirm-padding">Löschen</button>
+                <button type="button" id="btnConfirmDeleteCoice" class="btn btn-trash btn-confirm-padding">Löschen</button>
                 <button type="button" id="btnCancelDeleteCoice" class="btn modal-btn-cancel btn-confirm-padding">Abbrechen</button>
             </div>
         </div>

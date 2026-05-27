@@ -178,23 +178,6 @@ body {
     font-size: 13px;
 }
 
-/* Mülleimer / Aktionen */
-.delete-btn {
-    background: none;
-    border: none;
-    color: #aeaec2;
-    cursor: pointer;
-    transition: color 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
-
-.delete-btn:hover {
-    color: #ff3b30;
-}
-
 /* Footer (Datensicherung) */
 .app-footer {
     margin-top: 60px;
@@ -476,6 +459,7 @@ body {
     padding: 8px 14px;
     border-radius: 6px;
 }
+
 /* ========================================== */
 /* ADVANCED FORM & INTERN SCROLLING STYLES    */
 /* ========================================== */
@@ -484,15 +468,15 @@ body {
 .modal-flex-layout {
     display: flex;
     flex-direction: column;
-    height: 85vh; /* Geändert von max-height auf feste height, damit die Box stabil bleibt */
-    padding: 0 !important; /* Padding wird auf Unterelemente verteilt */
-    overflow: hidden; /* Verhindert, dass das gesamte Modal scrollt */
+    height: 85vh;
+    padding: 0 !important;
+    overflow: hidden;
 }
 
 /* Spezifische Breite NUR für das Einheiten-Datenblatt-Modal */
-#unitDatasheetModal .modal-content {
-    max-width: 950px;
-    width: 90%;
+#unitDatasheetModal .modal-content-large {
+    max-width: 1200px;
+    width: 95%;
 }
 
 .modal-fixed-header {
@@ -500,15 +484,15 @@ body {
     border-bottom: 1px solid #e5e5ea;
     background-color: #ffffff;
     border-radius: 12px 12px 0 0;
-    flex-shrink: 0; /* Verhindert, dass der Header gestaucht wird */
+    flex-shrink: 0;
 }
 
 .modal-fixed-footer {
     padding: 15px 24px;
     border-top: 1px solid #e5e5ea;
-    background-color: #f5f5f7; /* Schicker, leicht grauer iOS-Hintergrund */
+    background-color: #f5f5f7;
     border-radius: 0 0 12px 12px;
-    flex-shrink: 0; /* Verhindert, dass der Footer gestaucht wird */
+    flex-shrink: 0;
 }
 
 /* Der magische Scrollbereich */
@@ -517,8 +501,6 @@ body {
     overflow-y: auto;
     padding: 24px;
     background-color: #ffffff;
-    
-    /* Schicker nativer Scrollbar-Look */
     scrollbar-width: thin;
     scrollbar-color: #a0a0a0 #f0f0f0;
 }
@@ -561,20 +543,6 @@ body {
     font-weight: bold;
     color: #6a2b83;
     font-size: 15px;
-}
-
-.btn-delete-link {
-    background: none;
-    border: none;
-    color: #8e8e93;
-    font-size: 13px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: color 0.2s;
-}
-
-.btn-delete-link:hover {
-    color: #ff3b30;
 }
 
 /* Textarea Layout */
@@ -659,22 +627,19 @@ body {
         flex: 1;
     }
 }
+
 /* ========================================== */
 /* STYLES FÜR DIE DETACHMENTS & TAB-STEUERUNG */
 /* ========================================== */
 
-/* Versteckt alle Tabs standardmäßig */
 .tab-pane {
     display: none;
 }
 
-/* Zeigt nur den aktiven Tab an */
 .tab-pane.active {
     display: block;
 }
 
-
-/* Spezifisches Styling für den Konfigurieren-Button */
 .btn-configure {
     font-size: 14px;
     padding: 10px 16px;
@@ -688,17 +653,10 @@ body {
     background-color: #f6f0f9;
 }
 
-/* Damit der Löschen-Button in der Reihe kompakt bleibt */
-.table-delete-style {
-    width: auto !important;
-    padding: 0 10px;
-}
 /* ========================================== */
 /* STYLES FÜR DEN EINHEITEN-KATALOG           */
 /* ========================================== */
 
-/* Die Katalog-Zeile für Einheiten */
-/* So sieht der saubere Block aus: */
 .unit-catalog-row,
 .detachment-row {
     display: flex;
@@ -725,7 +683,6 @@ body {
     align-items: center;
 }
 
-/* Basis-Stil für den Bearbeiten-Textlink */
 .btn-edit-link {
     background: none;
     border: none;
@@ -738,7 +695,6 @@ body {
     transition: color 0.2s ease-in-out;
 }
 
-/* Spezifisches Lila für den Bearbeiten-Textlink */
 .style-purple-text {
     color: #6a2b83 !important;
 }
@@ -746,12 +702,12 @@ body {
     color: #542069 !important;
 }
 
-/* Volle Breite für den "Neues Datenblatt"-Button */
 .btn-full-width {
     width: 100%;
     padding: 14px;
     font-size: 16px;
 }
+
 /* ========================================== */
 /* STYLES FÜR GESTAFFELTE BONI INTERN         */
 /* ========================================== */
@@ -761,30 +717,11 @@ body {
     gap: 15px;
     align-items: center;
     margin-bottom: 12px;
-    animation: fadeInRow 0.2s ease-in-out; /* Kleiner, schicker Einblende-Effekt */
+    animation: fadeInRow 0.2s ease-in-out;
 }
 
 .nested-effect-row .form-group {
-    margin-bottom: 0; /* Verhindert ungewollte Abstände nach unten */
-}
-
-/* Rotes Lösch-Kreuz (X) */
-.btn-delete-nested {
-    background: none;
-    border: none;
-    color: #ff3b30;
-    font-size: 20px;
-    font-weight: bold;
-    cursor: pointer;
-    padding: 5px 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.1s ease;
-}
-
-.btn-delete-nested:hover {
-    transform: scale(1.2);
+    margin-bottom: 0;
 }
 
 @keyframes fadeInRow {
@@ -792,15 +729,11 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Responsive Anpassung für kleinere Bildschirme */
 @media (max-width: 600px) {
     .nested-effect-row {
         flex-direction: column;
         align-items: stretch;
         gap: 8px;
-    }
-    .btn-delete-nested {
-        align-self: flex-end;
     }
 }
 
@@ -808,13 +741,10 @@ body {
     margin-bottom: 12px;
 }
 
-/* ... [Behalte alle deine bisherigen Styles von oben vollständig bei!] ... */
-
 /* ========================================== */
 /* NEUE ZENTRALE STYLES STATT INLINE-ATTRIBUTEN */
 /* ========================================== */
 
-/* Label-Farben für verschachtelte Effekte */
 .label-muted {
     color: #666666;
 }
@@ -823,7 +753,6 @@ body {
     color: #28a745;
 }
 
-/* Äußere Button-Abstände in den Tabs */
 .btn-ability-wrapper {
     margin-top: 20px;
 }
@@ -836,7 +765,6 @@ body {
     margin-top: 25px;
 }
 
-/* Kleineres Bestätigungs-Modal (Löschen) */
 .modal-confirm-small {
     max-width: 400px !important;
     text-align: center;
@@ -844,10 +772,9 @@ body {
 
 .modal-confirm-text {
     margin-bottom: 20px;
-    color: #bbbbbb;
+    color: #8e8e93;
 }
 
-/* Zentrierte Buttons im Bestätigungs-Modal */
 .modal-actions-centered {
     justify-content: center;
     gap: 15px;
@@ -856,12 +783,11 @@ body {
 .btn-confirm-padding {
     padding: 10px 20px !important;
 }
-/* Diese Klasse sorgt dafür, dass NUR neu geklickte Elemente einblenden */
+
 .animate-spawn {
     animation: fadeInRow 0.2s ease-in-out;
 }
 
-/* Inline-Layout für das Einheiten-Datenblatt (Label links, Input rechts) */
 .form-group-inline {
     display: table;
     width: 100%;
@@ -870,7 +796,7 @@ body {
 
 .form-group-inline > label {
     display: table-cell;
-    width: 180px; /* Feste Breite für die Labels, damit alle Inputs sauber untereinander starten */
+    width: 180px;
     vertical-align: middle;
     font-weight: 500;
     color: #1d1d1f;
@@ -882,21 +808,18 @@ body {
     width: 100%;
 }
 
-/* Spezial-Ausrichtung für die Textarea, damit das Label oben statt mittig klebt */
 .form-group-top > label {
     vertical-align: top;
     padding-top: 8px;
 }
 
-/* Styling für die Fluff-Textarea */
 .form-textarea {
-    min-height: 120px; /* Genug Platz für längere Lore-Texte */
-    resize: vertical;  /* Der Nutzer kann die Box bei Bedarf im Browser nach unten ziehen */
+    min-height: 120px;
+    resize: vertical;
     line-height: 1.5;
     padding: 10px 12px;
 }
 
-/* Sektion für Modelle */
 .section-header-flex {
     display: flex;
     justify-content: space-between;
@@ -912,66 +835,88 @@ body {
     color: #1d1d1f;
 }
 
-/* Die Box für ein einzelnes Modell-Profil */
 .model-profile-card {
     background: #f5f5f7;
     border-radius: 8px;
-    padding: 12px 15px;
+    padding: 15px;
     margin-bottom: 12px;
     border: 1px solid #d2d2d7;
-}
-
-.model-profile-row {
     display: flex;
-    gap: 10px;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.model-profile-top-row {
+    display: flex;
+    justify-content: space-between;
     align-items: flex-end;
+    gap: 15px;
+    width: 100%;
 }
 
-/* Name des Modells innerhalb der Zeile flexibler machen */
 .model-name-group {
-    flex: 2;
-    min-width: 140px;
+    flex: 1;
 }
 
-/* Die Werte-Spalten (M, WS, BS...) */
+.model-profile-stats-row {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
 .model-stat-group {
     flex: 1;
-    min-width: 45px;
+    min-width: 40px;
     text-align: center;
 }
 
-.model-stat-group label {
-    display: block;
-    font-size: 11px;
-    font-weight: 700;
-    color: #86868b;
-    margin-bottom: 4px;
-    text-transform: uppercase;
-}
-
-.model-stat-group .form-input {
-    text-align: center;
-    padding: 6px 4px;
-    font-size: 13px;
-}
-
-/* Lösch-Button für das Profil */
-.btn-delete-profile {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 6px 4px;
-    align-self: flex-end;
-    transition: transform 0.1s ease;
-}
-
-.btn-delete-profile:hover {
-    transform: scale(1.2);
-}
-
-/* Styling für das spezifische Label des Modell-Typs */
 .model-name-label {
     font-size: 11px;
     color: #86868b;
+}
+
+/* ========================================== */
+/* ZENTRALE STYLES FÜR LÖSCH-BUTTONS          */
+/* ========================================== */
+
+/* Die einheitliche Basisklasse für alle Mülleimer-Buttons */
+.btn-trash {
+    background: transparent;
+    border: none;
+    color: #aeaec2;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 6px 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease-in-out;
+    width: auto !important;
+}
+
+.btn-trash:hover {
+    color: #ff3b30;
+    transform: scale(1.2);
+}
+
+/* Kontext-Anpassung: Lösch-Button für Fähigkeiten (mit Text) */
+.ability-card-header .btn-trash {
+    color: #8e8e93;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* Kontext-Anpassung: Lösch-Button für verschachtelte Effekte (Größer & Rot) */
+.nested-effect-row .btn-trash {
+    color: #ff3b30;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 5px 10px;
+}
+
+/* Kontext-Anpassung: Lösch-Button im Modell-Profil (Zentriert zum Textfeld) */
+.model-profile-top-row .btn-trash {
+    padding: 0;
+    margin-bottom: 10px;
+    align-self: center;
 }

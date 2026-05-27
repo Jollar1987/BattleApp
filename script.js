@@ -31,8 +31,6 @@ const btnCancelDeleteCoice = document.getElementById('btnCancelDeleteCoice');
 const deleteModalTitle = document.getElementById('deleteModalTitle');
 const deleteModalText = document.getElementById('deleteModalText');
 
-//
-
 
 // Hilfsvariable, um sich zu merken, welche Zeile gerade gelöscht werden soll
 let rowToDeleteCurrently = null;
@@ -45,10 +43,10 @@ if (submitFactionBtn && factionForm) {
 }
 
 // ==========================================
-// HTML TEMPLATES (Ohne Inline-Styles!)
+// HTML TEMPLATES (Einheitliches Klassen-System)
 // ==========================================
 
-// Fraktionsverwaltung: Template für neue Einheit (Statisch als Text)
+// Fraktionsverwaltung: Template für neue Einheit
 const unitTemplate = `
     <div class="unit-catalog-row animate-spawn">
         <span class="unit-name">Einheiten-Name</span>
@@ -58,7 +56,7 @@ const unitTemplate = `
                 ⚙️ Bearbeiten
             </button>
             
-            <button type="button" class="delete-btn table-delete-style btn-remove-unit">
+            <button type="button" class="btn-trash js-delete-unit">
                 🗑️
             </button>
         </div>
@@ -66,7 +64,6 @@ const unitTemplate = `
 `;
 
 // Fraktionsverwaltung: Template für neue gestaffelte Boni innerhalb der Fähigkeits-Karten
-// Hier wurden die Style-Attribute durch Klassen ersetzt (.label-muted und .label-success)
 const newRowHTML = `
     <div class="nested-effect-row">
         <div class="form-group flex-grow-input">
@@ -77,7 +74,7 @@ const newRowHTML = `
             <label class="form-label label-success">Modifikator / Bonus:</label>
             <input type="text" placeholder="z.B. Re-roll 1s to hit / Re-roll full hit roll" class="form-input">
         </div>
-        <button type="button" class="btn-delete-nested" title="Effekt löschen">🗑️</button>
+        <button type="button" class="btn-trash js-delete-nested" title="Effekt löschen">🗑️</button>
     </div>
 `;
 
@@ -91,7 +88,7 @@ const detachmentTemplate = `
                 ⚙️ Bearbeiten
             </button>
             
-            <button type="button" class="delete-btn table-delete-style btn-remove-detachment">
+            <button type="button" class="btn-trash js-delete-detachment">
                 🗑️
             </button>
         </div>
@@ -101,11 +98,16 @@ const detachmentTemplate = `
 // Fraktionsverwaltung: Template für neue zusätzliche Modell-Profile im Einheiten-Datenblatt
 const modelProfileTemplate = `
     <div class="model-profile-card animate-spawn">
-        <div class="model-profile-row">
+        
+        <div class="model-profile-top-row">
             <div class="form-group model-name-group">
                 <label class="form-label model-name-label">Modell-Typ:</label>
                 <input type="text" placeholder="z.B. Standard-Modell / Sergeant" class="form-input" value="Zusätzliches Modell">
             </div>
+            <button type="button" class="btn-trash js-delete-model-profile" title="Profil löschen">🗑️</button>
+        </div>
+
+        <div class="model-profile-stats-row">
             <div class="form-group model-stat-group"><label>M</label><input type="text" placeholder="6&quot;" class="form-input"></div>
             <div class="form-group model-stat-group"><label>WS</label><input type="text" placeholder="4+" class="form-input"></div>
             <div class="form-group model-stat-group"><label>BS</label><input type="text" placeholder="4+" class="form-input"></div>
@@ -115,8 +117,8 @@ const modelProfileTemplate = `
             <div class="form-group model-stat-group"><label>A</label><input type="number" placeholder="1" class="form-input"></div>
             <div class="form-group model-stat-group"><label>Ld</label><input type="text" placeholder="7+" class="form-input"></div>
             <div class="form-group model-stat-group"><label>Sv</label><input type="text" placeholder="5+" class="form-input"></div>
-            <button type="button" class="btn-delete-profile btn-remove-model-profile" title="Profil löschen">🗑️</button>
         </div>
+
     </div>
 `;
 
@@ -201,7 +203,7 @@ if (btnMainAddAbility && abilitiesContainer) {
             <div class="ability-card animate-spawn" data-ability-index="${abilityCounter}">
                 <div class="ability-card-header">
                     <span class="ability-title">✨ Fähigkeit #${abilityCounter} (Neu)</span>
-                    <button type="button" class="btn-delete-link btn-remove-entire-ability">
+                    <button type="button" class="btn-trash js-delete-ability">
                         🗑️ Fähigkeit löschen
                     </button>
                 </div>
@@ -264,7 +266,6 @@ if (btnMainAddAbility && abilitiesContainer) {
         abilitiesContainer.insertAdjacentHTML('beforeend', abilityTemplate);
         abilityCounter++;
 
-        // Animations-Klasse nach 200ms wieder entfernen
         const newlyAddedCards = abilitiesContainer.querySelectorAll('.ability-card.animate-spawn');
         const lastAddedCard = newlyAddedCards[newlyAddedCards.length - 1];
         if (lastAddedCard) {
@@ -272,28 +273,24 @@ if (btnMainAddAbility && abilitiesContainer) {
                 lastAddedCard.classList.remove('animate-spawn');
             }, 200);
         }
-    }); // <-- Schließt das addEventListener für den Button sauber
+    });
 
     // 2. KLICKS INNERHALB DES CONTAINERS VERWALTEN
     abilitiesContainer.addEventListener('click', (e) => {
         
-        // REPARIERT: Spezifischen/Gestaffelten Effekt hinzufügen (Original-Design)
+        // Spezifischen/Gestaffelten Effekt hinzufügen
         if (e.target.classList.contains('btn-add-nested-dynamic')) {
             const card = e.target.closest('.ability-card');
-            const container = card.querySelector('.nested-effects-box');
-
             const nestedHtml = `
                 <div class="nested-effect-row animate-spawn">
                     <input type="text" placeholder="Bedingung (z.B. Ab 3 verlorenen Modellen)" class="form-input" style="width: 40%;">
                     <input type="text" placeholder="Effekt (z.B. +1 auf Trefferwürfe)" class="form-input" style="width: 50%;">
-                    <button type="button" class="delete-btn btn-delete-nested">🗑️</button>
+                    <button type="button" class="btn-trash js-delete-nested">🗑️</button>
                 </div>
             `;
             
-            // Fügt das Element sauber direkt vor dem Button ein
             e.target.insertAdjacentHTML('beforebegin', nestedHtml);
 
-            // Die Spawn-Animation für den neuen Effekt nach 200ms entfernen
             const newlyAddedNested = card.querySelectorAll('.nested-effect-row.animate-spawn');
             const lastAddedNested = newlyAddedNested[newlyAddedNested.length - 1];
             if (lastAddedNested) {
@@ -304,27 +301,25 @@ if (btnMainAddAbility && abilitiesContainer) {
         }
 
         // Spezifischen/Gestaffelten Effekt löschen
-        if (e.target.classList.contains('btn-delete-nested')) {
+        if (e.target.closest('.js-delete-nested')) {
             e.target.closest('.nested-effect-row').remove();
         }
 
-        // Ganze Fähigkeits-Karte löschen mit dem neuen Modal
-        if (e.target.closest('.btn-remove-entire-ability')) {
+        // Ganze Fähigkeits-Karte löschen
+        if (e.target.closest('.js-delete-ability')) {
             const card = e.target.closest('.ability-card');
             if (card) {
-                rowToDeleteCurrently = card; // Karte im Speicher merken
+                rowToDeleteCurrently = card;
                 
-                // Text im Modal dynamisch ändern
                 deleteModalTitle.textContent = "Fähigkeit löschen?";
                 deleteModalText.textContent = "Möchtest du diese gesamte Fähigkeit inklusive aller eingetragenen Texte und spezifischen Effekte wirklich löschen?";
                 
-                // Modal anzeigen
                 deleteConfirmModal.classList.add('show');
             }
         }  
-    }); // <-- Schließt das addEventListener für den Container sauber
+    });
 
-} // <-- Schließt das if (btnMainAddAbility && abilitiesContainer) sauber
+}
 
 
 // ==========================================
@@ -333,17 +328,13 @@ if (btnMainAddAbility && abilitiesContainer) {
 const btnMainAddDetachment = document.getElementById('btnMainAddDetachment');
 const detachmentsContainer = document.getElementById('detachments-container');
 
-// NEU: Separater Klick zum Hinzufügen
 if (btnMainAddDetachment && detachmentsContainer) {
     btnMainAddDetachment.addEventListener('click', () => {
-        // 1. Neues Detachment hinzufügen
         detachmentsContainer.insertAdjacentHTML('beforeend', detachmentTemplate);
         
-        // 2. Die gerade eben hinzugefügte Reihe finden
         const newlyAddedRows = detachmentsContainer.querySelectorAll('.detachment-row.animate-spawn');
         const lastAddedRow = newlyAddedRows[newlyAddedRows.length - 1];
         
-        // 3. Nach 200 Millisekunden (Dauer der Animation) die Animations-Klasse entfernen
         if (lastAddedRow) {
             setTimeout(() => {
                 lastAddedRow.classList.remove('animate-spawn');
@@ -352,10 +343,9 @@ if (btnMainAddDetachment && detachmentsContainer) {
     });
 }
 
-// NEU: Das Detachment-Löschen öffnet jetzt das Modal (Hierhin kommt der erste Teil!)
 if (detachmentsContainer) {
     detachmentsContainer.addEventListener('click', (e) => {
-        if (e.target.closest('.btn-remove-detachment')) {
+        if (e.target.closest('.js-delete-detachment')) {
             const row = e.target.closest('.detachment-row');
             if (row) {
                 rowToDeleteCurrently = row;
@@ -368,13 +358,13 @@ if (detachmentsContainer) {
 }
 
 // ==========================================
-// EINHEITEN-KATALOG: BEARBEITEN & LÖSCHEN (KORRIGIERT)
+// EINHEITEN-KATALOG: BEARBEITEN & LÖSCHEN
 // ==========================================
 if (unitsContainer) {
     unitsContainer.addEventListener('click', (e) => {
         
-        // 1. LOGIK: Einheit löschen (Öffnet das Bestätigungs-Modal)
-        if (e.target.closest('.btn-remove-unit')) {
+        // 1. LOGIK: Einheit löschen
+        if (e.target.closest('.js-delete-unit')) {
             const row = e.target.closest('.unit-catalog-row');
             if (row) {
                 rowToDeleteCurrently = row;
@@ -382,23 +372,20 @@ if (unitsContainer) {
                 deleteModalText.textContent = "Möchtest du diese Einheit wirklich aus dem Katalog löschen?";
                 deleteConfirmModal.classList.add('show');
             }
-            return; // Beendet die Funktion für diesen Klick frühzeitig
+            return;
         }
 
-        // 2. LOGIK: Einheit bearbeiten (Öffnet das NEUE Datenblatt-Modal SOFORT)
+        // 2. LOGIK: Einheit bearbeiten
         const editBtn = e.target.closest('.btn-edit-unit');
         if (editBtn) {
             e.preventDefault();
-            e.stopPropagation(); // Stoppt jegliche andere Event-Verarbeitung im Browser
+            e.stopPropagation();
             
             const row = editBtn.closest('.unit-catalog-row');
             if (row) {
                 const nameSpan = row.querySelector('.unit-name');
                 if (nameSpan) {
-                    // Setze den Text aus dem SPAN direkt in das Input-Feld des Modals
                     dsUnitNameInput.value = nameSpan.textContent.trim();
-                    
-                    // Zeige das Modal sofort an
                     unitDatasheetModal.classList.add('show');
                 }
             }
@@ -406,9 +393,6 @@ if (unitsContainer) {
     });
 }
 
-// ==========================================================
-// Einheiten Katalog MODAL SCHLIEẞEN (Datenblätter)
-// ==========================================================
 if (closeDsModalBtn) {
     closeDsModalBtn.addEventListener('click', () => {
         unitDatasheetModal.classList.remove('show');
@@ -420,15 +404,11 @@ if (closeDsModalBtn) {
 // ==========================================
 if (btnMainAddUnit && unitsContainer) {
     btnMainAddUnit.addEventListener('click', () => {
-        // 1. Neue Einheit hinzufügen
-        const htmlString = unitTemplate;
-        unitsContainer.insertAdjacentHTML('beforeend', htmlString);
+        unitsContainer.insertAdjacentHTML('beforeend', unitTemplate);
         
-        // 2. Die gerade eben hinzugefügte Reihe finden
         const newlyAddedRows = unitsContainer.querySelectorAll('.unit-catalog-row.animate-spawn');
         const lastAddedRow = newlyAddedRows[newlyAddedRows.length - 1];
         
-        // 3. Nach 200 Millisekunden die Animations-Klasse entfernen
         if (lastAddedRow) {
             setTimeout(() => {
                 lastAddedRow.classList.remove('animate-spawn');
@@ -462,17 +442,15 @@ if (btnCancelDeleteCoice) {
 }
 
 // ==========================================================
-// PROFILWERTE-INTERFACE LOGIK (JS-TEMPLATE-ANSATZ)
+// PROFILWERTE-INTERFACE LOGIK
 // ==========================================================
 const modelsProfileContainer = document.getElementById('models-profile-container');
 const btnAddModelProfile = document.getElementById('btnAddModelProfile');
 
-// Event-Listener: Zusätzliches Profil via JS-Template hinzufügen
 if (btnAddModelProfile && modelsProfileContainer) {
     btnAddModelProfile.addEventListener('click', () => {
         modelsProfileContainer.insertAdjacentHTML('beforeend', modelProfileTemplate);
         
-        // Die gerade eben hinzugefügte Karte finden und die Spawn-Animation timen
         const newlyAddedCards = modelsProfileContainer.querySelectorAll('.model-profile-card.animate-spawn');
         const lastAddedCard = newlyAddedCards[newlyAddedCards.length - 1];
         if (lastAddedCard) {
@@ -483,11 +461,9 @@ if (btnAddModelProfile && modelsProfileContainer) {
     });
 }
 
-// Event-Listener: Profilzeile löschen
 if (modelsProfileContainer) {
     modelsProfileContainer.addEventListener('click', (e) => {
-        if (e.target.closest('.btn-remove-model-profile')) {
-            // Validierung: Es muss mindestens ein Profil stehen bleiben
+        if (e.target.closest('.js-delete-model-profile')) {
             if (modelsProfileContainer.querySelectorAll('.model-profile-card').length > 1) {
                 e.target.closest('.model-profile-card').remove();
             } else {
