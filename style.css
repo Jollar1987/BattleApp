@@ -848,3 +848,112 @@ body {
 .animate-spawn {
     animation: fadeInRow 0.2s ease-in-out;
 }
+
+/* Inline-Layout für das Einheiten-Datenblatt (Label links, Input rechts) */
+.form-group-inline {
+    display: table;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.form-group-inline > label {
+    display: table-cell;
+    width: 180px; /* Feste Breite für die Labels, damit alle Inputs sauber untereinander starten */
+    vertical-align: middle;
+    font-weight: 500;
+    color: #1d1d1f;
+    padding-right: 15px;
+}
+
+.form-group-inline > .form-input {
+    display: table-cell;
+    width: 100%;
+}
+
+/* Spezial-Ausrichtung für die Textarea, damit das Label oben statt mittig klebt */
+.form-group-top > label {
+    vertical-align: top;
+    padding-top: 8px;
+}
+
+/* Styling für die Fluff-Textarea */
+.form-textarea {
+    min-height: 120px; /* Genug Platz für längere Lore-Texte */
+    resize: vertical;  /* Der Nutzer kann die Box bei Bedarf im Browser nach unten ziehen */
+    line-height: 1.5;
+    padding: 10px 12px;
+}
+
+/* Sektion für Modelle */
+.section-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #e5e5ea;
+    padding-bottom: 8px;
+}
+
+.section-header-flex h3 {
+    font-size: 16px;
+    color: #1d1d1f;
+}
+
+/* Die Box für ein einzelnes Modell-Profil */
+.model-profile-card {
+    background: #f5f5f7;
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    border: 1px solid #d2d2d7;
+}
+
+.model-profile-row {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+/* Name des Modells innerhalb der Zeile flexibler machen */
+.model-name-group {
+    flex: 2;
+    min-width: 140px;
+}
+
+/* Die Werte-Spalten (M, WS, BS...) */
+.model-stat-group {
+    flex: 1;
+    min-width: 45px;
+    text-align: center;
+}
+
+.model-stat-group label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    color: #86868b;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.model-stat-group .form-input {
+    text-align: center;
+    padding: 6px 4px;
+    font-size: 13px;
+}
+
+/* Lösch-Button für das Profil */
+.btn-delete-profile {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 6px 4px;
+    align-self: flex-end;
+    transition: transform 0.1s ease;
+}
+
+.btn-delete-profile:hover {
+    transform: scale(1.2);
+}

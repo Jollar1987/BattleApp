@@ -268,6 +268,54 @@
         </div>
     </div>
 
+    <div id="unitDatasheetModal" class="modal-overlay">
+        <div class="modal-content modal-content-large">
+            
+            <div class="modal-fixed-header">
+                <h2>⚙️ Einheiten-Datenblatt bearbeiten</h2>
+            </div>
+
+            <div class="modal-body-scroll">
+                <form id="unitDatasheetForm" onsubmit="return false;">
+                    
+                    <div class="form-section">
+                        <div class="form-group form-group-inline">
+                            <label for="dsUnitName">Name der Einheit:</label>
+                            <input type="text" id="dsUnitName" class="form-input" placeholder="z.B. Termagants">
+                        </div>
+
+                        <div class="form-group form-group-inline form-group-top">
+                            <label for="dsUnitFluff">Beschreibung (Fluff):</label>
+                            <textarea id="dsUnitFluff" class="form-input form-textarea" placeholder="Schreibe hier die Hintergrundgeschichte oder Lore dieser Einheit hinein..."></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-section section-models">
+                        <div class="section-header-flex">
+                            <h3>Enthaltene Modell-Profile</h3>
+                            <button type="button" id="btnAddModelProfile" class="btn btn-secondary btn-sm">+ Modell-Profil hinzufügen</button>
+                        </div>
+                        
+                        <div id="models-profile-container">
+                            </div>
+                    </div>
+
+                    <div class="form-section" style="margin-top: 20px; padding: 20px; border: 2px dashed #9b51e0; border-radius: 8px; text-align: center; color: #666; background: rgba(155, 81, 224, 0.03);">
+                        <p>🔮 <strong>Nächste Felder</strong></p>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-fixed-footer">
+                <div class="modal-actions">
+                    <button type="button" id="closeDsModalBtn" class="btn modal-btn-cancel" style="width: 100%;">Schließen</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <div id="deleteConfirmModal" class="modal-overlay">
         <div class="modal-content modal-confirm-small">
             <h2 id="deleteModalTitle">Einheit löschen?</h2>

@@ -19,12 +19,20 @@ const submitFactionBtn = document.getElementById('submitFactionFormBtn');
 const unitsContainer = document.getElementById('units-container');
 const btnMainAddUnit = document.getElementById('btnMainAddUnit');
 
+// Einheiten-Katalog Datenblatt Modal Elemente
+const unitDatasheetModal = document.getElementById('unitDatasheetModal');
+const closeDsModalBtn = document.getElementById('closeDsModalBtn');
+const dsUnitNameInput = document.getElementById('dsUnitName');
+
 // Lösch-Bestätigungs-Modal Elemente
 const deleteConfirmModal = document.getElementById('deleteConfirmModal');
 const btnConfirmDeleteCoice = document.getElementById('btnConfirmDeleteCoice');
 const btnCancelDeleteCoice = document.getElementById('btnCancelDeleteCoice');
 const deleteModalTitle = document.getElementById('deleteModalTitle');
 const deleteModalText = document.getElementById('deleteModalText');
+
+//
+
 
 // Hilfsvariable, um sich zu merken, welche Zeile gerade gelöscht werden soll
 let rowToDeleteCurrently = null;
@@ -336,14 +344,14 @@ if (detachmentsContainer) {
         }
     });
 }
+
 // ==========================================
-// EINHEITEN-KATALOG: BEARBEITEN & LÖSCHEN
+// EINHEITEN-KATALOG: BEARBEITEN & LÖSCHEN (KORRIGIERT)
 // ==========================================
-// NEU: Der angepasste Einheiten-Katalog Block
 if (unitsContainer) {
     unitsContainer.addEventListener('click', (e) => {
         
-        // 1. LOGIK: Einheit löschen (Jetzt mit dem schicken Modal!)
+        // 1. LOGIK: Einheit löschen (Öffnet das Bestätigungs-Modal)
         if (e.target.closest('.btn-remove-unit')) {
             const row = e.target.closest('.unit-catalog-row');
             if (row) {
@@ -352,14 +360,36 @@ if (unitsContainer) {
                 deleteModalText.textContent = "Möchtest du diese Einheit wirklich aus dem Katalog löschen?";
                 deleteConfirmModal.classList.add('show');
             }
+            return; // Beendet die Funktion für diesen Klick frühzeitig
         }
 
-        // 2. LOGIK: Einheit bearbeiten (Bleibt absolut unverändert!)
-        if (e.target.closest('.btn-edit-unit')) {
-            const row = e.target.closest('.unit-catalog-row');
-            const unitName = row.querySelector('.unit-name').textContent;
-            alert(`Datenblatt für "${unitName}" wird geöffnet... (Hier programmieren wir bald das Unter-Modal!)`);
+        // 2. LOGIK: Einheit bearbeiten (Öffnet das NEUE Datenblatt-Modal SOFORT)
+        const editBtn = e.target.closest('.btn-edit-unit');
+        if (editBtn) {
+            e.preventDefault();
+            e.stopPropagation(); // Stoppt jegliche andere Event-Verarbeitung im Browser
+            
+            const row = editBtn.closest('.unit-catalog-row');
+            if (row) {
+                const nameSpan = row.querySelector('.unit-name');
+                if (nameSpan) {
+                    // Setze den Text aus dem SPAN direkt in das Input-Feld des Modals
+                    dsUnitNameInput.value = nameSpan.textContent.trim();
+                    
+                    // Zeige das Modal sofort an
+                    unitDatasheetModal.classList.add('show');
+                }
+            }
         }
+    });
+}
+
+// ==========================================================
+// Einheiten Katalog MODAL SCHLIEẞEN (Datenblätter)
+// ==========================================================
+if (closeDsModalBtn) {
+    closeDsModalBtn.addEventListener('click', () => {
+        unitDatasheetModal.classList.remove('show');
     });
 }
 
