@@ -175,28 +175,6 @@ body {
     vertical-align: middle;
 }
 
-/* OPTIMIERT: Jetzt als echter, sauber formatierter Tabellen-Button */
-.army-name-box {
-    background-color: #3b1c4a;
-    color: #ffffff;
-    padding: 14px 20px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 16px;
-    box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
-    border: none;
-    cursor: pointer;
-    text-align: left;
-    width: 100%;
-    display: block;
-    font-family: inherit;
-    transition: background-color 0.2s ease;
-}
-
-.army-name-box:hover {
-    background-color: #2e153a;
-}
-
 /* Punkte-Spalte */
 .points-cell {
     text-align: center;

@@ -108,14 +108,12 @@ const modelProfileTemplate = `
 
         <div class="model-profile-stats-row">
             <div class="form-group model-stat-group"><label>M</label><input type="text" placeholder="6&quot;" class="form-input"></div>
-            <div class="form-group model-stat-group"><label>WS</label><input type="text" placeholder="4+" class="form-input"></div>
-            <div class="form-group model-stat-group"><label>BS</label><input type="text" placeholder="4+" class="form-input"></div>
-            <div class="form-group model-stat-group"><label>S</label><input type="number" placeholder="3" class="form-input"></div>
             <div class="form-group model-stat-group"><label>T</label><input type="number" placeholder="3" class="form-input"></div>
-            <div class="form-group model-stat-group"><label>W</label><input type="number" placeholder="1" class="form-input"></div>
-            <div class="form-group model-stat-group"><label>A</label><input type="number" placeholder="1" class="form-input"></div>
-            <div class="form-group model-stat-group"><label>Ld</label><input type="text" placeholder="7+" class="form-input"></div>
             <div class="form-group model-stat-group"><label>Sv</label><input type="text" placeholder="5+" class="form-input"></div>
+            <div class="form-group model-stat-group"><label>InSv</label><input type="text" placeholder="5+" class="form-input"></div>
+            <div class="form-group model-stat-group"><label>W</label><input type="number" placeholder="1" class="form-input"></div>
+            <div class="form-group model-stat-group"><label>Ld</label><input type="text" placeholder="7+" class="form-input"></div>
+            <div class="form-group model-stat-group"><label>OC</label><input type="text" placeholder="2" class="form-input"></div>
         </div>
 
     </div>
