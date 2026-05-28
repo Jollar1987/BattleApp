@@ -147,6 +147,66 @@ body {
     border-color: #6a2b83; /* Etwas dunklerer Rahmen für verschachtelte Buttons */
 }
 
+/* ========================================================== */
+/* REINER CSS-WEG: VOLL ANKLICKBARE BOXEN MIT SUFFIX          */
+/* ========================================================== */
+
+/* Der Kasten füllt die Spalte symmetrisch aus und dient als Anker für das Suffix */
+.stat-input-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    padding: 0;
+    transition: border-color 0.2s;
+    position: relative; /* WICHTIG: Erlaubt absolute Positionierung des Suffixes */
+    height: 46px;
+    width: 100%;
+    cursor: text;
+}
+
+.stat-input-wrapper:focus-within {
+    border-color: #6a2b83;
+}
+
+/* Das Eingabefeld nutzt nun die vollen 100% Breite -> Überall perfekt anklickbar! */
+.stat-input-wrapper .form-input {
+    border: none !important;
+    background: transparent !important;
+    padding: 0 !important;
+    text-align: center;      /* Text steht perfekt in der Mitte */
+    width: 100%;             /* Füllt die komplette Box aus */
+    outline: none;
+    font-size: 16px;
+    font-family: inherit;
+}
+
+/* Das Suffix schwebt absolut über dem Input und weicht Klicks aus */
+.stat-suffix {
+    position: absolute;
+    font-size: 14px;
+    font-weight: 600;
+    color: #8e8e93;
+    
+    /* Verschiebt das Zeichen aus der Mitte leicht nach rechts, direkt neben die Zahl */
+    left: calc(50% + 8px); 
+    
+    /* Vertikale Zentrierung im Kasten */
+    top: 50%;
+    transform: translateY(-50%);
+    
+    /* Macht das Zeichen physikalisch für Klicks unsichtbar -> Klick geht durch aufs Input */
+    pointer-events: none;    
+    user-select: none;
+}
+
+/* Versteckt den Datalist-Dropdown-Pfeil */
+.stat-input-wrapper .form-input::-webkit-calendar-picker-indicator {
+    display: none !important;
+}
+
 /* Listen / Tabellen-Stile */
 .table-container {
     width: 100%;
@@ -409,6 +469,18 @@ body {
     gap: 20px;
     border-bottom: 1px solid #e0e0e0;
     margin-bottom: 25px;
+    /* ========================================================== */
+    /* HIER DIE ERWEITERUNG FÜR LANGE REITER-LEISTEN (DOPPELNUTZUNG) */
+    /* ========================================================== */
+    overflow-x: auto;          /* Ermöglicht horizontales Scrollen auf Handys */
+    white-space: nowrap;       /* Verhindert, dass die Tabs in die nächste Zeile rutschen */
+    scrollbar-width: none;     /* Versteckt den hässlichen Scrollbalken in Firefox */
+    -webkit-overflow-scrolling: touch; /* Macht das Scrollen auf iPhones butterweich */
+}
+
+/* Versteckt den Scrollbalken in Chrome, Safari und Edge */
+.modal-tabs::-webkit-scrollbar {
+    display: none;
 }
 
 .tab-item {
@@ -497,6 +569,7 @@ body {
     background-color: #ffffff;
     scrollbar-width: thin;
     scrollbar-color: #a0a0a0 #f0f0f0;
+    padding: 0 20px 20px 20px;
 }
 
 .modal-body-scroll::-webkit-scrollbar {
@@ -859,4 +932,16 @@ body {
     padding: 0;
     margin-bottom: 10px;
     align-self: center;
+}
+
+/* Verhindert das Wegscrollen der Aktions-Header in den Tabs */
+.sticky-tab-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #ffffff; /* Deckt den darunter scrollenden Inhalt ab */
+    padding-top: 5px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 15px;
 }

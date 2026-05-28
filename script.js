@@ -97,28 +97,63 @@ const detachmentTemplate = `
 // Fraktionsverwaltung: Template für neue zusätzliche Modell-Profile im Einheiten-Datenblatt
 const modelProfileTemplate = `
     <div class="model-profile-card animate-spawn">
-        
         <div class="model-profile-top-row">
             <div class="form-group model-name-group">
                 <label class="form-label model-name-label">Modell-Typ:</label>
-                <input type="text" placeholder="z.B. Standard-Modell / Sergeant" class="form-input" value="Zusätzliches Modell">
+                <input type="text" placeholder="z.B. Standard-Modell / Sergeant" class="form-input" value="Standard-Modell">
             </div>
             <button type="button" class="btn-trash btn-remove-model-profile" title="Profil löschen">🗑️</button>
         </div>
-
         <div class="model-profile-stats-row">
-            <div class="form-group model-stat-group"><label>M</label><input type="text" placeholder="6&quot;" class="form-input"></div>
-            <div class="form-group model-stat-group"><label>T</label><input type="number" placeholder="3" class="form-input"></div>
-            <div class="form-group model-stat-group"><label>Sv</label><input type="text" placeholder="5+" class="form-input"></div>
-            <div class="form-group model-stat-group"><label>InSv</label><input type="text" placeholder="5+" class="form-input"></div>
-            <div class="form-group model-stat-group"><label>W</label><input type="number" placeholder="1" class="form-input"></div>
-            <div class="form-group model-stat-group"><label>Ld</label><input type="text" placeholder="7+" class="form-input"></div>
-            <div class="form-group model-stat-group"><label>OC</label><input type="text" placeholder="2" class="form-input"></div>
+            <div class="form-group model-stat-group">
+                <label>M</label>
+                <div class="stat-input-wrapper">
+                    <input type="text" list="movement-suggestions" placeholder="6" class="form-input">
+                    <span class="stat-suffix">"</span>
+                </div>
+            </div>
+            <div class="form-group model-stat-group">
+                <label>T</label>
+                <div class="stat-input-wrapper">
+                    <input type="text" list="general-stats-suggestions" placeholder="3" class="form-input">
+                </div>
+            </div>
+            <div class="form-group model-stat-group">
+                <label>Sv</label>
+                <div class="stat-input-wrapper">
+                    <input type="text" list="dice-suggestions" placeholder="5" class="form-input">
+                    <span class="stat-suffix">+</span>
+                </div>
+            </div>
+            <div class="form-group model-stat-group">
+                <label>InSv</label>
+                <div class="stat-input-wrapper">
+                    <input type="text" list="dice-suggestions" placeholder="5" class="form-input">
+                    <span class="stat-suffix">+</span>
+                </div>
+            </div>
+            <div class="form-group model-stat-group">
+                <label>W</label>
+                <div class="stat-input-wrapper">
+                    <input type="text" list="general-stats-suggestions" placeholder="1" class="form-input">
+                </div>
+            </div>
+            <div class="form-group model-stat-group">
+                <label>Ld</label>
+                <div class="stat-input-wrapper">
+                    <input type="text" list="dice-suggestions" placeholder="7" class="form-input">
+                    <span class="stat-suffix">+</span>
+                </div>
+            </div>
+            <div class="form-group model-stat-group">
+                <label>OC</label>
+                <div class="stat-input-wrapper">
+                    <input type="text" list="general-stats-suggestions" placeholder="2" class="form-input">
+                </div>
+            </div>
         </div>
-
     </div>
 `;
-
 // ==========================================
 // MODAL 1: ARMEE ERSTELLEN
 // ==========================================
@@ -162,24 +197,6 @@ if (factionForm && factionModal) {
         factionModal.classList.remove('show');
     });
 }
-
-// ==========================================
-// TABS UMSCHALT-LOGIK
-// ==========================================
-const tabButtons = document.querySelectorAll('.tab-item');
-const tabPanes = document.querySelectorAll('.tab-pane');
-
-tabButtons.forEach((button, index) => {
-    button.addEventListener('click', () => {
-        tabButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-
-        tabPanes.forEach(pane => pane.classList.remove('active'));
-        if (tabPanes[index]) {
-            tabPanes[index].classList.add('active');
-        }
-    });
-});
 
 // ==========================================
 // DYNAMISCHE FRAKTIONSFÄHIGKEITEN HINZUFÜGEN
@@ -461,3 +478,48 @@ if (modelsProfileContainer) {
         }
     });
 }
+
+// ==========================================================
+// GLOBALE LOGIK FÜR MODAL-TAB-UMSCHALTUNG (ISOLIERT & SICHER)
+// ==========================================================
+document.addEventListener('DOMContentLoaded', function() {
+    
+    document.addEventListener('click', function(event) {
+        // Prüfen, ob ein Tab-Item geklickt wurde
+        if (event.target.classList.contains('tab-item')) {
+            const clickedTab = event.target;
+            const targetPaneId = clickedTab.getAttribute('data-target');
+            
+            // Falls ein Tab kein data-target hat, brechen wir ab
+            if (!targetPaneId) return;
+            
+            // Sichert die Aktion auf das aktuelle Modal ab (verhindert das "Leersaugen" des Hintergrunds)
+            const currentModal = clickedTab.closest('.modal-content');
+            
+            if (currentModal) {
+                const navTabsContainer = clickedTab.closest('.modal-tabs');
+                
+                // 1. Deaktiviere nur die Reiter in dieser spezifischen Leiste
+                if (navTabsContainer) {
+                    navTabsContainer.querySelectorAll('.tab-item').forEach(tab => {
+                        tab.classList.remove('active');
+                    });
+                }
+                
+                // 2. Verstecke nur die Panes innerhalb DIESES geöffneten Modals
+                currentModal.querySelectorAll('.tab-pane').forEach(pane => {
+                    pane.classList.remove('active');
+                });
+                
+                // 3. Aktiviere den geklickten Reiter
+                clickedTab.classList.add('active');
+                
+                // 4. Zeige das passende Pane im selben Modal
+                const targetPane = currentModal.querySelector(`#${targetPaneId}`);
+                if (targetPane) {
+                    targetPane.classList.add('active');
+                }
+            }
+        }
+    });
+});

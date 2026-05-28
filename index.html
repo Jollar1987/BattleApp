@@ -118,9 +118,9 @@
                 </div>
 
                 <div class="modal-tabs">
-                    <button type="button" class="tab-item active">Armeeregeln</button>
-                    <button type="button" class="tab-item">Detachments</button>
-                    <button type="button" class="tab-item">Einheiten-Katalog</button>
+                    <button type="button" class="tab-item active" data-target="tab-armeeregeln">Armeeregeln</button>
+                    <button type="button" class="tab-item" data-target="tab-detachments">Detachments</button>
+                    <button type="button" class="tab-item" data-target="tab-einheiten">Einheiten-Katalog</button>
                 </div>
             </div>
 
@@ -275,58 +275,174 @@
             
             <div class="modal-fixed-header">
                 <h2>⚙️ Einheiten-Datenblatt bearbeiten</h2>
+                
+                <div class="modal-tabs">
+                    <button type="button" class="tab-item active" data-target="tab-general">Allgemein</button>
+                    <button type="button" class="tab-item" data-target="tab-profiles">Profile</button>
+                    <button type="button" class="tab-item" data-target="tab-ranged">Fernkampf</button>
+                    <button type="button" class="tab-item" data-target="tab-melee">Nahkampf</button>
+                    <button type="button" class="tab-item" data-target="tab-abilities">Fähigkeiten</button>
+                    <button type="button" class="tab-item" data-target="tab-wargear">Ausrüstung</button>
+                    <button type="button" class="tab-item" data-target="tab-options">Optionen</button>
+                    <button type="button" class="tab-item" data-target="tab-composition">Komposition</button>
+                    <button type="button" class="tab-item" data-target="tab-keywords">Keywords</button>
+                </div>
             </div>
 
             <div class="modal-body-scroll">
                 <form id="unitDatasheetForm" onsubmit="return false;">
-                    
-                    <div class="form-section">
-                        <div class="form-group form-group-inline">
-                            <label for="dsUnitName">Name der Einheit:</label>
-                            <input type="text" id="dsUnitName" class="form-input" placeholder="z.B. Termagants">
-                        </div>
-
-                        <div class="form-group form-group-inline form-group-top">
-                            <label for="dsUnitFluff">Beschreibung (Fluff):</label>
-                            <textarea id="dsUnitFluff" class="form-input form-textarea" placeholder="Schreibe hier die Hintergrundgeschichte oder Lore dieser Einheit hinein..."></textarea>
-                        </div>
-                    </div>
-
-                    <div class="form-section section-models">
-                        <div class="section-header-flex">
-                            <h3>Enthaltene Modell-Profile</h3>
-                            <button type="button" id="btnAddModelProfile" class="btn btn-secondary">+ Modell-Profil hinzufügen</button>
-                        </div>
+                    <div class="modal-tab-content">
                         
-                        <div id="models-profile-container">
-                            <div class="model-profile-card">
-                                
-                                <div class="model-profile-top-row">
-                                    <div class="form-group model-name-group">
-                                        <label class="form-label model-name-label">Modell-Typ:</label>
-                                        <input type="text" placeholder="z.B. Standard-Modell / Sergeant" class="form-input" value="Standard-Modell">
-                                    </div>
-                                    <button type="button" class="btn-trash btn-remove-model-profile" title="Profil löschen">🗑️</button>
+                        <div id="tab-general" class="tab-pane active">
+                            <div class="form-section">
+                                <div class="form-group form-group-inline">
+                                    <label for="dsUnitName">Name der Einheit:</label>
+                                    <input type="text" id="dsUnitName" class="form-input" placeholder="z.B. Termagants">
                                 </div>
 
-                                <div class="model-profile-stats-row">
-                                    <div class="form-group model-stat-group"><label>M</label><input type="text" placeholder="6&quot;" class="form-input"></div>
-                                    <div class="form-group model-stat-group"><label>T</label><input type="number" placeholder="3" class="form-input"></div>
-                                    <div class="form-group model-stat-group"><label>Sv</label><input type="text" placeholder="5+" class="form-input"></div>
-                                    <div class="form-group model-stat-group"><label>InSv</label><input type="text" placeholder="5+" class="form-input"></div>
-                                    <div class="form-group model-stat-group"><label>W</label><input type="number" placeholder="1" class="form-input"></div>
-                                    <div class="form-group model-stat-group"><label>Ld</label><input type="text" placeholder="7+" class="form-input"></div>
-                                    <div class="form-group model-stat-group"><label>OC</label><input type="text" placeholder="2" class="form-input"></div>
+                                <div class="form-group form-group-inline form-group-top">
+                                    <label for="dsUnitFluff">Beschreibung (Fluff):</label>
+                                    <textarea id="dsUnitFluff" class="form-input form-textarea" placeholder="Schreibe hier die Hintergrundgeschichte oder Lore dieser Einheit hinein..."></textarea>
                                 </div>
-
                             </div>
                         </div>
-                    </div>
 
-                    <div class="form-section" style="margin-top: 20px; padding: 20px; border: 2px dashed #9b51e0; border-radius: 8px; text-align: center; color: #666; background: rgba(155, 81, 224, 0.03);">
-                        <p>🔮 <strong>Nächste Felder</strong></p>
-                    </div>
+                        <div id="tab-profiles" class="tab-pane">
+                            <div class="section-header-flex sticky-tab-header">
+                                <h3>Enthaltene Modell-Profile</h3>
+                                <button type="button" id="btnAddModelProfile" class="btn btn-secondary">+ Modell-Profil hinzufügen</button>
+                            </div>
+                            <div class="form-section section-models">
+                                
 
+                                
+                                <div id="models-profile-container">
+                                    <div class="model-profile-card">
+                                        <div class="model-profile-top-row">
+                                            <div class="form-group model-name-group">
+                                                <label class="form-label model-name-label">Modell-Typ:</label>
+                                                <input type="text" placeholder="z.B. Standard-Modell / Sergeant" class="form-input" value="Standard-Modell">
+                                            </div>
+                                            <button type="button" class="btn-trash btn-remove-model-profile" title="Profil löschen">🗑️</button>
+                                        </div>
+
+                                        <div class="model-profile-stats-row">
+                                            <div class="form-group model-stat-group"><label>M</label><div class="stat-input-wrapper"><input type="text" list="movement-suggestions" placeholder="6" class="form-input"><span class="stat-suffix">"</span></div></div>
+                                            <div class="form-group model-stat-group"><label>T</label><div class="stat-input-wrapper"><input type="text" list="general-stats-suggestions" placeholder="3" class="form-input"></div></div>
+                                            <div class="form-group model-stat-group"><label>Sv</label><div class="stat-input-wrapper"><input type="text" list="dice-suggestions" placeholder="5" class="form-input"><span class="stat-suffix">+</span></div></div>
+                                            <div class="form-group model-stat-group"><label>InSv</label><div class="stat-input-wrapper"><input type="text" list="dice-suggestions" placeholder="5" class="form-input"><span class="stat-suffix">+</span></div></div>
+                                            <div class="form-group model-stat-group"><label>W</label><div class="stat-input-wrapper"><input type="text" list="general-stats-suggestions" placeholder="1" class="form-input"></div></div>
+                                            <div class="form-group model-stat-group"><label>Ld</label><div class="stat-input-wrapper"><input type="text" list="dice-suggestions" placeholder="7" class="form-input"><span class="stat-suffix">+</span></div></div>
+                                            <div class="form-group model-stat-group"><label>OC</label><div class="stat-input-wrapper"><input type="text" list="general-stats-suggestions" placeholder="2" class="form-input"></div></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <datalist id="movement-suggestions">
+                                    <option value="-">Nicht vorhanden (unbeweglich)</option>
+                                    <option value="0"></option><option value="4"></option><option value="5"></option>
+                                    <option value="6"></option><option value="7"></option><option value="8"></option>
+                                    <option value="10"></option><option value="12"></option>
+                                </datalist>
+                                <datalist id="general-stats-suggestions">
+                                    <option value="-">Nicht vorhanden</option>
+                                    <option value="0"></option><option value="1"></option><option value="2"></option>
+                                    <option value="3"></option><option value="4"></option><option value="5"></option>
+                                    <option value="6"></option><option value="8"></option><option value="10"></option>
+                                </datalist>
+                                <datalist id="dice-suggestions">
+                                    <option value="-">Kein Schutzwurf / Nicht vorhanden</option>
+                                    <option value="2"></option><option value="3"></option><option value="4"></option>
+                                    <option value="5"></option><option value="6"></option><option value="7"></option>
+                                </datalist>
+                            </div>
+                        </div>
+
+                        <div id="tab-ranged" class="tab-pane">
+                            <div class="form-section">
+                                <div class="section-header-flex sticky-tab-header">
+                                    <h3>Fernkampfwaffen</h3>
+                                    <button type="button" id="btnAddRangedWeapon" class="btn btn-secondary">+ Waffe hinzufügen</button>
+                                </div>
+                                <div class="tab-placeholder">
+                                    <p>🔮 <strong>Fernkampfwaffen-Eingabe</strong> (folgt als Nächstes)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tab-melee" class="tab-pane">
+                            <div class="form-section">
+                                <div class="section-header-flex sticky-tab-header">
+                                    <h3>Nahkampfwaffen</h3>
+                                    <button type="button" id="btnAddMeleeWeapon" class="btn btn-secondary">+ Waffe hinzufügen</button>
+                                </div>
+                                <div class="tab-placeholder">
+                                    <p>🔮 <strong>Nahkampfwaffen-Eingabe</strong> (folgt als Nächstes)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tab-abilities" class="tab-pane">
+                            <div class="form-section">
+                                <div class="section-header-flex sticky-tab-header">
+                                    <h3>Einheiten-Fähigkeiten</h3>
+                                    <button type="button" id="btnAddUnitAbility" class="btn btn-secondary">+ Fähigkeit hinzufügen</button>
+                                </div>
+                                <div class="tab-placeholder">
+                                    <p>🔮 <strong>Einheiten-Fähigkeiten</strong> (folgt als Nächstes)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tab-wargear" class="tab-pane">
+                            <div class="form-section">
+                                <div class="section-header-flex sticky-tab-header">
+                                    <h3>Ausrüstungs-Effekte</h3>
+                                    <button type="button" id="btnAddWargearEffect" class="btn btn-secondary">+ Effekt hinzufügen</button>
+                                </div>
+                                <div class="tab-placeholder">
+                                    <p>🔮 <strong>Ausrüstungs-Effekte</strong> (folgt als Nächstes)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tab-options" class="tab-pane">
+                            <div class="form-section">
+                                <div class="section-header-flex sticky-tab-header">
+                                    <h3>Ausrüstungsoptionen</h3>
+                                    <button type="button" id="btnAddWargearOption" class="btn btn-secondary">+ Option hinzufügen</button>
+                                </div>
+                                <div class="tab-placeholder">
+                                    <p>🔮 <strong>Ausrüstungsoptionen</strong> (folgt als Nächstes)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tab-composition" class="tab-pane">
+                            <div class="form-section">
+                                <div class="section-header-flex sticky-tab-header">
+                                    <h3>Einheitenkomposition</h3>
+                                    <button type="button" id="btnAddCompositionRule" class="btn btn-secondary">+ Regel hinzufügen</button>
+                                </div>
+                                <div class="tab-placeholder">
+                                    <p>🔮 <strong>Einheitenkomposition</strong> (folgt als Nächstes)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="tab-keywords" class="tab-pane">
+                            <div class="form-section">
+                                <div class="section-header-flex sticky-tab-header">
+                                    <h3>Keywords &amp; Faction-Keywords</h3>
+                                    <button type="button" id="btnAddKeyword" class="btn btn-secondary">+ Keyword hinzufügen</button>
+                                </div>
+                                <div class="tab-placeholder">
+                                    <p>🔮 <strong>Keywords &amp; Faction-Keywords</strong> (folgt als Nächstes)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> 
                 </form>
             </div>
 
