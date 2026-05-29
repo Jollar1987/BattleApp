@@ -317,13 +317,15 @@
 
                                 
                                 <div id="models-profile-container">
-                                    <div class="model-profile-card">
+                                    <div class="model-profile-card animate-spawn">
                                         <div class="model-profile-top-row">
                                             <div class="form-group model-name-group">
                                                 <label class="form-label model-name-label">Modell-Typ:</label>
-                                                <input type="text" placeholder="z.B. Standard-Modell / Sergeant" class="form-input" value="Standard-Modell">
+                                                <div class="model-input-row">
+                                                    <input type="text" placeholder="z.B. Standard-Modell / Sergeant" class="form-input" value="Standard-Modell">
+                                                    <button type="button" class="btn-trash btn-remove-model-profile" title="Profil löschen">🗑️</button>
+                                                </div>
                                             </div>
-                                            <button type="button" class="btn-trash btn-remove-model-profile" title="Profil löschen">🗑️</button>
                                         </div>
 
                                         <div class="model-profile-stats-row">
@@ -364,8 +366,37 @@
                                     <h3>Fernkampfwaffen</h3>
                                     <button type="button" id="btnAddRangedWeapon" class="btn btn-secondary">+ Waffe hinzufügen</button>
                                 </div>
-                                <div class="tab-placeholder">
-                                    <p>🔮 <strong>Fernkampfwaffen-Eingabe</strong> (folgt als Nächstes)</p>
+                                
+                                <div id="ranged-weapons-container">
+                                    <div class="weapon-card">
+                                        <div class="weapon-card-top-row">
+                                            <div class="form-group weapon-name-group">
+                                                <label class="form-label weapon-name-label">Fernkampfwaffe:</label>
+                                                
+                                                <div class="weapon-input-row">
+                                                    <input type="text" placeholder="z.B. Fleshborer / Heavy Venom Cannon" class="form-input" value="Standard-Fernkampfwaffe">
+                                                    <button type="button" class="btn-trash btn-remove-weapon" title="Waffe löschen">🗑️</button>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+
+                                        <div class="weapon-stats-row">
+                                            <div class="form-group weapon-stat-group"><label>R</label><div class="stat-input-wrapper"><input type="text" placeholder="18&quot;" class="form-input"></div></div>
+                                            <div class="form-group weapon-stat-group"><label>A</label><div class="stat-input-wrapper"><input type="text" placeholder="2" class="form-input"></div></div>
+                                            <div class="form-group weapon-stat-group"><label>BS</label><div class="stat-input-wrapper"><input type="text" placeholder="4+" class="form-input"></div></div>
+                                            <div class="form-group weapon-stat-group"><label>S</label><div class="stat-input-wrapper"><input type="text" placeholder="4" class="form-input"></div></div>
+                                            <div class="form-group weapon-stat-group"><label>AP</label><div class="stat-input-wrapper"><input type="text" placeholder="0" class="form-input"></div></div>
+                                            <div class="form-group weapon-stat-group"><label>D</label><div class="stat-input-wrapper"><input type="text" placeholder="1" class="form-input"></div></div>
+                                        </div>
+
+                                        <div class="weapon-abilities-row">
+                                            <div class="form-group">
+                                                <label class="form-label">Waffenfähigkeiten / Keywords:</label>
+                                                <input type="text" placeholder="z.B. Assault, Lethal Hits, Blast" class="form-input">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -376,9 +407,37 @@
                                     <h3>Nahkampfwaffen</h3>
                                     <button type="button" id="btnAddMeleeWeapon" class="btn btn-secondary">+ Waffe hinzufügen</button>
                                 </div>
-                                <div class="tab-placeholder">
-                                    <p>🔮 <strong>Nahkampfwaffen-Eingabe</strong> (folgt als Nächstes)</p>
+                                
+                                <div id="melee-weapons-container">
+                                    <div class="weapon-card">
+                                        <div class="weapon-card-top-row">
+                                            <div class="form-group weapon-name-group">
+                                                <label class="form-label weapon-name-label">Nahkampfwaffe:</label>
+                                                <div class="weapon-input-row">
+                                                    <input type="text" placeholder="z.B. Scything Talons / Power Weapon" class="form-input" value="Standard-Nahkampfwaffe">
+                                                    <button type="button" class="btn-trash btn-remove-weapon" title="Waffe löschen">🗑️</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="weapon-stats-row">
+                                            <div class="form-group weapon-stat-group"><label>R</label><div class="stat-input-wrapper"><input type="text" value="Melee" class="form-input" disabled style="text-align: center; background-color: #f0f0f0; font-weight: bold; color: #666;"></div></div>
+                                            <div class="form-group weapon-stat-group"><label>A</label><div class="stat-input-wrapper"><input type="text" placeholder="4" class="form-input"></div></div>
+                                            <div class="form-group weapon-stat-group"><label>WS</label><div class="stat-input-wrapper"><input type="text" placeholder="4+" class="form-input"></div></div>
+                                            <div class="form-group weapon-stat-group"><label>S</label><div class="stat-input-wrapper"><input type="text" placeholder="4" class="form-input"></div></div>
+                                            <div class="form-group weapon-stat-group"><label>AP</label><div class="stat-input-wrapper"><input type="text" placeholder="0" class="form-input"></div></div>
+                                            <div class="form-group weapon-stat-group"><label>D</label><div class="stat-input-wrapper"><input type="text" placeholder="1" class="form-input"></div></div>
+                                        </div>
+
+                                        <div class="weapon-abilities-row">
+                                            <div class="form-group">
+                                                <label class="form-label">Waffenfähigkeiten / Keywords:</label>
+                                                <input type="text" placeholder="z.B. Twin-linked, Anti-Infantry 4+, Sustained Hits 1" class="form-input">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
 

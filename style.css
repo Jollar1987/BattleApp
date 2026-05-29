@@ -731,10 +731,10 @@ body {
 
 .nested-effect-row {
     display: flex;
-    gap: 15px;
     align-items: center;
-    margin-bottom: 12px;
-    animation: fadeInRow 0.2s ease-in-out;
+    gap: 15px;
+    margin-bottom: 10px;
+    width: 100%;
 }
 
 .nested-effect-row .form-group {
@@ -872,7 +872,7 @@ body {
 }
 
 .model-name-group {
-    flex: 1;
+    width: 100%;
 }
 
 .model-profile-stats-row {
@@ -902,7 +902,7 @@ body {
     color: #aeaec2;
     cursor: pointer;
     font-size: 16px;
-    padding: 6px 12px;
+    /*padding: 6px 12px;*/
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -944,4 +944,126 @@ body {
     padding-bottom: 15px;
     border-bottom: 1px solid #f0f0f0;
     margin-bottom: 15px;
+}
+
+/* Waffenkarten-Design (analog zu Modell-Profilen) */
+.weapon-card {
+    background: #fdfdfd;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.weapon-card-top-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+.btn-remove-weapon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.weapon-name-group {
+    flex-grow: 1;
+}
+
+.weapon-input-row {
+    display: flex;
+    align-items: center; /* Zentriert alles auf der vertikalen Mittelachse */
+    gap: 15px;           /* Erzeugt den Abstand zwischen Input und Mülleimer */
+}
+
+.weapon-input-row .form-input {
+    flex-grow: 1;        /* Das Inputfeld nimmt den restlichen Platz ein */
+}
+
+/* Die Stats-Zeile teilt sich gleichmäßig auf */
+.weapon-stats-row {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.weapon-stat-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.weapon-stat-group label {
+    font-weight: bold;
+    font-size: 0.85rem;
+    color: #555;
+    margin-bottom: 4px;
+}
+
+/* Zeile für die Waffenfähigkeiten unter den Stats */
+.weapon-abilities-row {
+    border-top: 1px dashed #eaeaea;
+    padding-top: 12px;
+    margin-top: 5px;
+}
+
+.weapon-abilities-row .form-label {
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 4px;
+    display: block;
+}
+
+/* Perfekte Zentrierung für den Mülleimer bei den Modell-Profilen */
+.model-input-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.model-input-row .form-input {
+    flex-grow: 1;
+}
+
+/* Perfekte Zentrierung für den Mülleimer bei den gestaffelten Effekten */
+.nested-input-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.nested-input-row .form-input {
+    flex-grow: 1;
+}
+
+/* Verhindert, dass die Trash-Buttons unschöne Standard-Ränder oder Abstände haben */
+.btn-remove-model-profile,
+.btn-delete-nested {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Regelt das Breitenverhältnis (40% zu 50%) sauber via Flex-Grow im CSS */
+.nested-effect-row .input-condition {
+    flex: 4;
+}
+
+.nested-effect-row .input-effect {
+    flex: 5;
 }
